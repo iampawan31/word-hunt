@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import { useState, useEffect } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+  const [meanings, setMeanings] = useState([]);
+  const [languageCode, setLanguageCode] = useState("en");
+  const [word, setWord] = useState("plane");
+
+  const dictionaryApi = async () => {
+    try {
+      const data = await axios.get(
+        `${process.env.REACT_APP_DICTIONARY_API}/${languageCode}/${word}`
+      );
+
+      setMeanings(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    dictionaryApi();
+  }, []);
+  return <div>Hello World</div>;
+};
 
 export default App;

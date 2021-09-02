@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Container } from "@material-ui/core";
 
 import Header from "./components/Headers/Header";
@@ -9,22 +9,21 @@ const App = () => {
   const [languageCode, setLanguageCode] = useState("en");
   const [word, setWord] = useState("plane");
 
-  useEffect(() => {
-    dictionaryApi();
-  }, [word, languageCode]);
-
-  const dictionaryApi = async () => {
+  const dictionaryApi = useCallback(async () => {
     try {
       const data = await axios.get(
         `https://api.dictionaryapi.dev/api/v2/entries/${languageCode}/${word}`
       );
 
       setMeanings(data.data);
-      console.log(meanings);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [languageCode, word]);
+
+  useEffect(() => {
+    dictionaryApi();
+  }, [word, languageCode, dictionaryApi]);
 
   return (
     <div

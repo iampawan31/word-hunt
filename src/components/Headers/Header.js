@@ -5,6 +5,7 @@ import {
   ThemeProvider,
   MenuItem,
 } from "@material-ui/core";
+
 import languages from "../../data/languages";
 
 const Header = ({
@@ -12,7 +13,9 @@ const Header = ({
   word,
   languageCode,
   setWord,
+  setIsSearching,
   setLanguageCode,
+  setMeanings,
 }) => {
   const darkTheme = createTheme({
     palette: {
@@ -24,6 +27,20 @@ const Header = ({
   const handleChange = (language) => {
     setLanguageCode(language);
     setWord("");
+    setMeanings([]);
+  };
+
+  const handleWordChange = (value) => {
+    setWord(value);
+    if (value.length === 0) {
+      setMeanings([]);
+    }
+  };
+
+  const handleWordInput = (e) => {
+    if (e.keyCode === 13) {
+      setIsSearching(true);
+    }
   };
 
   return (
@@ -35,7 +52,9 @@ const Header = ({
             className="search"
             label="Search Word..."
             value={word}
-            onChange={(e) => setWord(e.target.value)}
+            onKeyDown={handleWordInput}
+            onChange={(e) => handleWordChange(e.target.value)}
+            helperText="Press enter to search..."
           />
           <TextField
             className="select"

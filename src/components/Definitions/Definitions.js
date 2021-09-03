@@ -1,21 +1,39 @@
 import "./Definitions.css";
 
-const Definitions = ({ lightMode, meanings, word, languageCode }) => {
-  return (
+const Definitions = ({
+  lightMode,
+  meanings,
+  word,
+  languageCode,
+  isSearching,
+}) => {
+  const audioSource =
+    languageCode === "en" &&
+    meanings &&
+    meanings.length > 0 &&
+    meanings[0].phonetics &&
+    meanings[0].phonetics[0].audio
+      ? meanings[0].phonetics[0].audio.replace("//", "https://")
+      : null;
+
+  return isSearching ? (
+    ""
+  ) : (
     <div className="meanings">
-      {languageCode === "en" &&
-        meanings &&
-        meanings.length > 0 &&
-        meanings[0].phonetics &&
-        meanings[0].phonetics[0].audio && (
-          <audio
-            style={{ backgroundColor: "#ffffff", borderRadius: 10 }}
-            controls
-          >
-            <source src={meanings[0].phonetics[0].audio} />
-            Your browser doesn't support audio.
-          </audio>
-        )}
+      {audioSource !== null && (
+        <audio
+          style={{
+            backgroundColor: "#ffffff",
+            borderRadius: 10,
+            width: "100%",
+          }}
+          preload="auto"
+          controls
+        >
+          <source src={audioSource} type="audio/mp3" />
+          Your browser doesn't support audio.
+        </audio>
+      )}
 
       {word === "" ? (
         <span className="subtitle">Start by typing a word in search</span>
@@ -27,12 +45,12 @@ const Definitions = ({ lightMode, meanings, word, languageCode }) => {
                 key={index}
                 className="singleMean"
                 style={{
-                  backgroundColor: lightMode ? "#000000" : "#ffffff",
-                  color: lightMode ? "#f3f3f3" : "#000000",
+                  backgroundColor: lightMode ? "#424242" : "#ffffff",
+                  color: lightMode ? "#f3f3f3" : "#424242",
                 }}
               >
-                <b>{def.definition}</b>
-                <hr style={{ backgroundColor: "#000000", width: "100%" }} />
+                <b>{`${index + 1}. ${def.definition}`}</b>
+                <hr style={{ backgroundColor: "#424242", width: "100%" }} />
                 {def.example && (
                   <span>
                     <b>Example:</b> {def.example}

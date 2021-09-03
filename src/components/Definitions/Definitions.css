@@ -1,0 +1,35 @@
+.meanings {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  height: 55vh;
+  border: 1rem solid rgb(105, 105, 105);
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+  overflow-x: hidden;
+}
+
+.subtitle {
+  font-size: 2vw;
+}
+
+.singleMean {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 900px) {
+  .meanings {
+    height: 60vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+  .subtitle {
+    font-size: 4vw;
+  }
+}

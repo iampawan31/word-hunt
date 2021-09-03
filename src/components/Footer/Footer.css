@@ -1,0 +1,16 @@
+.footer {
+  height: 5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer a {
+  margin-left: 0.2rem;
+  text-decoration: none;
+  color: rgb(173, 41, 41);
+}
+
+.footer a:hover {
+  color: rgb(214, 106, 106);
+}

@@ -7,11 +7,17 @@ import {
 } from "@material-ui/core";
 import languages from "../../data/languages";
 
-const Header = ({ word, languageCode, setWord, setLanguageCode }) => {
+const Header = ({
+  lightMode,
+  word,
+  languageCode,
+  setWord,
+  setLanguageCode,
+}) => {
   const darkTheme = createTheme({
     palette: {
       primary: { main: "#f3f3f3" },
-      type: "dark",
+      type: lightMode ? "light" : "dark",
     },
   });
 
